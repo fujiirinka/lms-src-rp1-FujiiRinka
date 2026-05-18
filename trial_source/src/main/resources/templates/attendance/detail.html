@@ -86,6 +86,13 @@
 			const minutes = ('0' + today.getMinutes()).slice(-2);
 			return hours + ':' + minutes;
 		}
+		
+		<!-- 藤井 - Task.25 過去日が未入力の場合の表示 -->
+		const message = '過去日の勤怠に未入力があります。';
+		if (/*[[${notEnter}]]*/notEnter) {
+			alert(message);
+		}
+		
 	</script>
 
 </body>
