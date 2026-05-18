@@ -47,6 +47,7 @@ public class AttendanceController {
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
 		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
 		
+		// 藤井 - Task.25
 		// 過去日の未入力件数をカウント
 		boolean notEnter = studentAttendanceService.notEnterCheck();
 		model.addAttribute("notEnter", notEnter);
