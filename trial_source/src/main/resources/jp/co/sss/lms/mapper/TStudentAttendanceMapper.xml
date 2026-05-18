@@ -41,8 +41,7 @@
 	</select>
 
 	<insert id="insert" parameterType="jp.co.sss.lms.entity.TStudentAttendance" useGeneratedKeys="true" keyProperty="studentAttendanceId">
-		INSERT INTO t_student_attendance 
-		(
+		INSERT INTO t_student_attendance (
 			lms_user_id,
 			training_date,
 			training_start_time,
@@ -86,11 +85,9 @@
 		WHERE student_attendance_id = #{studentAttendanceId}
 	</update>
 	
-	<select id="notEnterCount" resultType="jp.co.sss.lms.entity.TStudentAttendance">
+	<!-- 藤井 - Task.25 -->
+	<select id="notEnterCount">
 		SELECT
-			lms_user_id,
-			delete_flg,
-			training_date
 		COUNT
 			(*)
 		FROM
@@ -103,7 +100,7 @@
 			training_date &lt; #{trainingDate}
 		AND
 			status != 1	
-		AND
+		AND (
 			training_start_time = ''
 		OR 
 			training_end_time = ''
@@ -111,7 +108,7 @@
 			training_start_time IS NULL
  		OR
 			training_end_time IS NULL
-			
+		)
 	</select>
 
 </mapper>
