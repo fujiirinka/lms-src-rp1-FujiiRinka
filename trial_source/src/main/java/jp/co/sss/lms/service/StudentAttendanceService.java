@@ -333,5 +333,27 @@ public class StudentAttendanceService {
 		// 完了メッセージ
 		return messageUtil.getMessage(Constants.PROP_KEY_ATTENDANCE_UPDATE_NOTICE);
 	}
+	
+	/**
+	 * 勤怠未入力件数の取得
+	 * 
+	 * @author 藤井 - Task.25
+	 * @return 未入力件数
+	 * @throws ParseException
+	 */
+	public boolean notEnterCheck() throws ParseException {
+		
+		// 当日日付
+		Date trainingDate = attendanceUtil.getTrainingDate();
+		
+		// 未入力件数を取得
+		Integer notEnterCount = tStudentAttendanceMapper.notEnterCount(loginUserDto.getLmsUserId(), 
+				Constants.DB_FLG_FALSE, trainingDate);
+		if (notEnterCount > 0) {
+			return true;
+		}
+		return false;
+
+	}
 
 }
