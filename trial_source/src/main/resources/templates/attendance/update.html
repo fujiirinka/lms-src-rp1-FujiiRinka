@@ -23,7 +23,7 @@
 
 			<form th:action="@{/attendance/update}" method="post">
 				<table class="table table-hover dataTable no-footer">
-					<thead>
+					<thead class="db">
 						<tr>
 							<th class="w140">日付</th>
 							<th class="w300">コース内容</th>
@@ -34,7 +34,9 @@
 							<th class="w240">備考</th>
 						</tr>
 					</thead>
-					<tbody>
+				
+					<!-- 藤井 - Task.29 一覧のスクロール表示 -->
+					<tbody class="db": style="display: block; overflow-y: scroll; height: 560px;">
 						<th:block th:each="dailyAttendanceForm, stat : *{attendanceForm.attendanceList}">
 							<tr>
 								<th:block>
@@ -66,7 +68,6 @@
 									<input type="text" th:name="|attendanceList[${stat.index}].note|" th:value="${dailyAttendanceForm.note}" class="form-control"></input>
 								</td>
 							</tr>
-						</th:block>
 					</tbody>
 				</table>
 
