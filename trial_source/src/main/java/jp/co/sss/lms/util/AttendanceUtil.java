@@ -146,5 +146,62 @@ public class AttendanceUtil {
 		}
 		return false;
 	}
+	
+	/**
+	 * 時間取得（時）マップ
+	 * 
+	 * @author 藤井 - Task.26
+	 * @return 時間（時）マップ
+	 */
+	public LinkedHashMap<Integer, String> getHourMap() {
+		LinkedHashMap<Integer, String> hourMap = new LinkedHashMap<>();
+		hourMap.put(null, "");
+		for (int i = 0; i < 24; i++) {
+			hourMap.put(i,String.format("%02d", i));
+		}
+		return hourMap;
+	}
+	
+	/**
+	 * 時間取得（分）マップ
+	 * 
+	 * @author 藤井 - Task.26
+	 * @return 時間（分）マップ
+	 */
+	public LinkedHashMap<Integer, String> getMinuteMap() {
+		LinkedHashMap<Integer, String> minuteMap = new LinkedHashMap<>();
+		minuteMap.put(null, "");
+		for (int i = 0; i < 60; i++) {
+			minuteMap.put(i,String.format("%02d", i));
+		}
+		return minuteMap;
+	}
 
+	/**
+	 * 時間取得（時）切り出し
+	 * 
+	 * @author 藤井 - Task.26
+	 * @return 時間（時）
+	 */
+	public Integer getHour(String timeString) {
+		if(timeString == null || timeString.isBlank()) {
+			return null;
+		}
+		return Integer.parseInt(timeString.substring(0, 2));
+	
+	}
+
+	/**
+	 * 時間取得（分）切り出し
+	 * 
+	 * @author 藤井 - Task.26
+	 * @return 時間（分）
+	 */
+	public Integer getMinute(String timeString) {
+		if(timeString == null || timeString.isBlank()) {
+			return null;
+		}
+		return Integer.parseInt(timeString.substring(3));
+	
+	}
 }
