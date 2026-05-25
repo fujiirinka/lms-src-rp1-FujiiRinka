@@ -222,8 +222,8 @@ public class StudentAttendanceService {
 
 		// 藤井 - Task.26
 		// 勤怠フォームにプルダウンをセット
-		attendanceForm.setHourMap(attendanceUtil.getTimeHourMap());
-		attendanceForm.setMinuteMap(attendanceUtil.getTimeMinuteMap());
+		attendanceForm.setHourMap(attendanceUtil.getHourMap());
+		attendanceForm.setMinuteMap(attendanceUtil.getMinuteMap());
 		
 		// 途中退校している場合のみ設定
 		if (loginUserDto.getLeaveDate() != null) {
@@ -247,13 +247,13 @@ public class StudentAttendanceService {
 			// 藤井 - Task.26
 			// 出勤（時・分）退勤（時・分）
 			dailyAttendanceForm.setTrainingStartTimeHour(
-					attendanceUtil.getTimeHour(attendanceManagementDto.getTrainingStartTime()));
+					attendanceUtil.getHour(attendanceManagementDto.getTrainingStartTime()));
 			dailyAttendanceForm.setTrainingStartTimeMinute(
-					attendanceUtil.getTimeMinute(attendanceManagementDto.getTrainingStartTime()));
-			dailyAttendanceForm.setTrainingStartTimeHour(
-					attendanceUtil.getTimeHour(attendanceManagementDto.getTrainingEndTime()));
+					attendanceUtil.getMinute(attendanceManagementDto.getTrainingStartTime()));
+			dailyAttendanceForm.setTrainingEndTimeHour(
+					attendanceUtil.getHour(attendanceManagementDto.getTrainingEndTime()));
 			dailyAttendanceForm.setTrainingEndTimeMinute(
-					attendanceUtil.getTimeMinute(attendanceManagementDto.getTrainingEndTime()));
+					attendanceUtil.getMinute(attendanceManagementDto.getTrainingEndTime()));
 			
 			if (attendanceManagementDto.getBlankTime() != null) {
 				dailyAttendanceForm.setBlankTime(attendanceManagementDto.getBlankTime());
@@ -374,7 +374,7 @@ public class StudentAttendanceService {
 	}
 
 	/**
-	 * 文字列の変換（hh:mm形式の文字列に変換）
+	 * 文字列の変換（hh:mm形式）
 	 * 
 	 * @author 藤井 - Task.26
 	 * @param attendanceForm
@@ -385,12 +385,16 @@ public class StudentAttendanceService {
 		for(DailyAttendanceForm dailyAttendanceForm : attendanceForm.getAttendanceList()) {
 			
 			// 出勤「時・分」がともに入力されている場合
-			if(dailyAttendanceForm.getTrainingStartTimeHour() != null || dailyAttendanceForm.getTrainingStartTimeMinute() != null) {
-				dailyAttendanceForm.setTrainingStartTime(String.format("%02d:%02d"));
+			if(dailyAttendanceForm.getTrainingStartTimeHour() != null 
+					|| dailyAttendanceForm.getTrainingStartTimeMinute() != null) {
+				dailyAttendanceForm.setTrainingStartTime(String.format("%02d", dailyAttendanceForm.getTrainingStartTimeHour()) 
+						+ ":" + String.format("%02d", dailyAttendanceForm.getTrainingStartTimeMinute()));
 			}	
 			// 退勤「時・分」がともに入力されている場合
-			if(dailyAttendanceForm.getTrainingEndTimeHour() != null || dailyAttendanceForm.getTrainingEndTimeMinute() != null) {
-				dailyAttendanceForm.setTrainingEndTime(String.format("%02d:%02d"));
+			if(dailyAttendanceForm.getTrainingEndTimeHour() != null 
+					|| dailyAttendanceForm.getTrainingEndTimeMinute() != null) {
+				dailyAttendanceForm.setTrainingEndTime(String.format("%02d", dailyAttendanceForm.getTrainingEndTimeHour()) 
+						+ ":" + String.format("%02d", dailyAttendanceForm.getTrainingEndTimeMinute()));
 			}
 			
 		}
