@@ -355,7 +355,8 @@ public class StudentAttendanceService {
 	 * 勤怠未入力件数の取得
 	 * 
 	 * @author 藤井 - Task.25
-	 * @return boolean
+	 * @return 未入力の場合:true
+	 * 			そうでない場合:false
 	 * @throws ParseException
 	 */
 	public boolean notEnterCheck() throws ParseException {
